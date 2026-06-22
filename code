@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de ayuda – ¡YoVoy!</title>
+<meta name="description" content="Encontrá respuestas sobre cómo usar YoVoy, tu reputación, tu cuenta y Premium. Si no encontrás lo que buscás, escribinos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue-deep:#0B2E7A;
+    --blue-bright:#1E6BFF;
+    --amber:#FFC93C;
+    --amber-deep:#E6A800;
+    --ink:#0B1330;
+    --muted:#5B6B8C;
+    --paper:#FFFFFF;
+    --paper-soft:#F2F6FF;
+    --line:#E1E8FB;
+    --radius:18px;
+    --maxw:880px;
+    font-size:16px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;margin:0;}
+  p{margin:0;line-height:1.55;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- Skip link / focus ---------- */
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--amber); color:var(--blue-deep);
+    padding:10px 16px; border-radius:0 0 10px 0; font-weight:700;
+    z-index:100;
+  }
+  .skip-link:focus{left:0;}
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline:3px solid var(--amber);
+    outline-offset:2px;
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(11,46,122,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .site-header__inner{
+    max-width:var(--maxw); margin:0 auto;
+    padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    text-decoration:none; color:#fff;
+  }
+  .brand__badge{
+    width:34px; height:34px; border-radius:11px;
+    background:linear-gradient(160deg,#4C8CFF,#1E6BFF);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; flex-shrink:0;
+    box-shadow:inset 0 -3px 6px rgba(0,0,0,0.18);
+  }
+  .brand__name{font-weight:700; font-size:1.1rem;}
+  .header-cta{
+    color:#fff; text-decoration:none; font-weight:600; font-size:0.9rem;
+    border:1.5px solid rgba(255,255,255,0.35); border-radius:999px;
+    padding:8px 16px; white-space:nowrap;
+  }
+  .header-cta:hover{background:rgba(255,255,255,0.1);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:radial-gradient(120% 140% at 18% -10%, #2C7BFF 0%, var(--blue-deep) 62%);
+    color:#fff;
+    padding:56px 20px 64px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:auto -20% -60% -20%;
+    height:240px;
+    background:radial-gradient(50% 100% at 50% 0%, rgba(255,201,60,0.18), transparent 70%);
+    pointer-events:none;
+  }
+  .hero__inner{max-width:var(--maxw); margin:0 auto; position:relative; z-index:1;}
+  .hero__hand{
+    width:74px; height:74px; margin:0 auto 18px;
+    border-radius:22px;
+    background:linear-gradient(160deg,#4C8CFF,#1E6BFF);
+    display:flex; align-items:center; justify-content:center;
+    font-size:38px;
+    box-shadow:0 12px 28px rgba(0,0,0,0.25), inset 0 -4px 8px rgba(0,0,0,0.2);
+    animation:wave 2.6s ease-in-out infinite;
+    transform-origin:70% 80%;
+  }
+  @keyframes wave{
+    0%,100%{transform:rotate(0deg);}
+    10%{transform:rotate(-9deg);}
+    20%{transform:rotate(7deg);}
+    30%{transform:rotate(-6deg);}
+    40%{transform:rotate(3deg);}
+    50%{transform:rotate(0deg);}
+  }
+  .hero h1{
+    font-size:clamp(1.7rem, 4.5vw, 2.4rem);
+    font-weight:800; line-height:1.15;
+    margin-bottom:10px;
+  }
+  .hero p{
+    color:rgba(255,255,255,0.82);
+    font-size:1.02rem;
+    max-width:480px; margin:0 auto 28px;
+  }
+
+  .search{
+    max-width:480px; margin:0 auto;
+    position:relative;
+  }
+  .search input{
+    width:100%; padding:15px 20px 15px 46px;
+    border-radius:999px; border:none;
+    font-size:1rem; font-family:inherit;
+    background:#fff; color:var(--ink);
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  }
+  .search input::placeholder{color:#8C96B4;}
+  .search__icon{
+    position:absolute; left:18px; top:50%; transform:translateY(-50%);
+    font-size:1.05rem; opacity:0.55; pointer-events:none;
+  }
+
+  /* ---------- Category chips ---------- */
+  .chips{
+    max-width:var(--maxw); margin:-24px auto 0;
+    padding:0 20px;
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    position:relative; z-index:2;
+  }
+  .chip{
+    background:#fff; border:1px solid var(--line);
+    border-radius:999px; padding:10px 16px;
+    font-size:0.85rem; font-weight:600; color:var(--blue-deep);
+    cursor:pointer; text-decoration:none;
+    box-shadow:0 6px 16px rgba(11,46,122,0.08);
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .chip:hover{transform:translateY(-2px); border-color:var(--blue-bright);}
+
+  /* ---------- Main / FAQ ---------- */
+  main{max-width:var(--maxw); margin:0 auto; padding:56px 20px 20px;}
+
+  .category{margin-bottom:40px;}
+  .category__eyebrow{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:16px;
+  }
+  .category__eyebrow span.dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--amber); flex-shrink:0;
+  }
+  .category__eyebrow h2{
+    font-size:1.15rem; color:var(--blue-deep); font-weight:700;
+  }
+
+  .faq-item{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    margin-bottom:10px;
+    background:var(--paper-soft);
+    overflow:hidden;
+  }
+  .faq-item__q{
+    width:100%; text-align:left;
+    background:none; border:none;
+    padding:18px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    cursor:pointer; color:var(--ink); font-weight:600; font-size:0.98rem;
+  }
+  .faq-item__icon{
+    flex-shrink:0; width:22px; height:22px;
+    border-radius:50%; background:#fff; border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.85rem; color:var(--blue-bright); font-weight:700;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .faq-item[data-open="true"] .faq-item__icon{
+    transform:rotate(45deg);
+    background:var(--blue-bright); border-color:var(--blue-bright); color:#fff;
+  }
+  .faq-item__a{
+    max-height:0; overflow:hidden;
+    transition:max-height .25s ease;
+  }
+  .faq-item__a p{
+    padding:0 20px 18px; color:var(--muted); font-size:0.94rem;
+  }
+  .faq-item[hidden]{display:none;}
+
+  .no-results{
+    text-align:center; color:var(--muted);
+    padding:30px 0; font-size:0.95rem; display:none;
+  }
+
+  /* ---------- Contact card ---------- */
+  .contact{
+    background:linear-gradient(135deg,#102B6B,#1E4FAE);
+    border-radius:24px;
+    padding:36px 28px;
+    text-align:center;
+    color:#fff;
+    margin:48px 0 8px;
+  }
+  .contact h2{font-size:1.3rem; margin-bottom:8px;}
+  .contact p{color:rgba(255,255,255,0.78); max-width:420px; margin:0 auto 22px;}
+  .contact__email{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--amber); color:var(--blue-deep);
+    font-weight:700; text-decoration:none;
+    padding:13px 26px; border-radius:999px; font-size:0.95rem;
+  }
+  .contact__email:hover{background:var(--amber-deep);}
+  .contact__note{
+    margin-top:16px; font-size:0.82rem; color:rgba(255,255,255,0.6);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    margin-top:50px;
+    padding:28px 20px 40px;
+    text-align:center;
+  }
+  .footer__links{
+    display:flex; gap:18px; justify-content:center; flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .footer__links a{
+    text-decoration:none; color:var(--muted); font-size:0.85rem; font-weight:600;
+  }
+  .footer__links a:hover{color:var(--blue-bright);}
+  .footer__copy{color:#A8B2CC; font-size:0.8rem;}
+
+  @media (max-width:480px){
+    .hero{padding:46px 16px 56px;}
+    .chips{margin-top:-18px;}
+    main{padding:48px 16px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#main-content">
+      <span class="brand__badge" aria-hidden="true">✋</span>
+      <span class="brand__name">¡YoVoy!</span>
+    </a>
+    <a class="header-cta" href="#contacto">Escribinos</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__hand" aria-hidden="true">✋</div>
+    <h1>¿Necesitás una mano?</h1>
+    <p>Buscá tu duda acá abajo. Si no la encontrás, te contestamos directo.</p>
+    <div class="search">
+      <span class="search__icon" aria-hidden="true">🔍</span>
+      <label for="faq-search" class="visually-hidden" style="position:absolute;left:-9999px;">Buscar en el centro de ayuda</label>
+      <input id="faq-search" type="search" placeholder="Buscar: cancelar plan, Carisma, eliminar cuenta…" autocomplete="off">
+    </div>
+  </div>
+</section>
+
+<nav class="chips" aria-label="Categorías de ayuda">
+  <a class="chip" href="#empezar">Empezar</a>
+  <a class="chip" href="#planes">Planes y chat</a>
+  <a class="chip" href="#reputacion">Reputación</a>
+  <a class="chip" href="#cuenta">Cuenta y privacidad</a>
+  <a class="chip" href="#premium">Premium y pagos</a>
+</nav>
+
+<main id="main-content">
+
+  <section class="category" id="empezar">
+    <div class="category__eyebrow"><span class="dot"></span><h2>Empezar</h2></div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué es YoVoy?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>YoVoy es una app para armar y sumarte a planes con gente real: deportes, salidas, juntadas o lo que se te ocurra. Mostrás tus ganas, alguien las comparte, y el plan se hace.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo me registro?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Te registrás con tu cuenta de Google o de Apple. Antes de entrar te vamos a pedir que confirmes que sos mayor de edad.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿YoVoy está disponible para Android?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Por ahora YoVoy está disponible solo para iOS. Estamos trabajando para llegar a Android pronto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="planes">
+    <div class="category__eyebrow"><span class="dot"></span><h2>Planes y chat</h2></div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo creo un plan?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Tocá el botón de crear plan, elegí qué vas a hacer, dónde y a qué hora, y decidí si es público o privado. Listo: aparece en el mapa.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo me sumo a un plan?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Buscalo en el mapa, leé el chat para ver la onda, y cuando te decidas tocá "Confirmar asistencia". A partir de ahí podés escribir.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Por qué no puedo escribir en el chat de un plan?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Podés leer todo el chat libremente. Para escribir, primero tenés que confirmar tu asistencia. Así nos aseguramos de que el grupo sea gente que realmente va a ir.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué hace el botón "Llegué"?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Se activa cuando tu ubicación coincide con la del plan. Al tocarlo, tu asistencia queda registrada para siempre: nadie te puede marcar como ausente después.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Puedo cancelar un plan que creé?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Sí. Desde el plan tenés la opción de cancelarlo. Se borra del mapa y avisa a quienes ya habían confirmado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="reputacion">
+    <div class="category__eyebrow"><span class="dot"></span><h2>Reputación</h2></div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué es el Carisma?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Es tu puntaje del 1 al 5 que el resto de los participantes te da al terminar un plan. Cuanto mejor te lleves con la gente, más alto va a ser.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué es la Confiabilidad?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Mide qué tan seguido cumplís lo que confirmás. Sube cuando vas a los planes que dijiste que ibas a ir, baja cuando el creador del plan te marca como ausente.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué pasa si falto a varios planes?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Si te marcan como ausente tres veces, tu cuenta queda suspendida por 72 horas. Confirmá solo lo que realmente vas a cumplir.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="cuenta">
+    <div class="category__eyebrow"><span class="dot"></span><h2>Cuenta y privacidad</h2></div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo elimino mi cuenta?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Desde Ajustes → Cuenta → Eliminar cuenta. Se borran tu perfil, tus planes y tu historial. Esta acción no se puede deshacer.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Quién puede ver mi perfil?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Cualquier usuario de la app puede ver tu perfil básico. Vos decidís cuánta información de personalidad, gustos y creencias mostrás.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo reporto a alguien o a un plan?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Desde el perfil del usuario o desde el plan, tocá los tres puntos y elegí "Reportar". Lo revisamos lo antes posible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="premium">
+    <div class="category__eyebrow"><span class="dot"></span><h2>Premium y pagos</h2></div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Qué incluye YoVoy Premium?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Desbloqueás los perfiles de la gente cerca, ves quién visitó tu perfil, destacás tus planes en el mapa, filtrás quién puede unirse según personalidad, y vendés entradas a tus eventos sin perder comisión.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        ¿Cómo cancelo mi suscripción Premium?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Las suscripciones se gestionan desde el App Store: Ajustes del iPhone → tu nombre → Suscripciones.</p>
+      </div>
+    </div>
+
+    <div class="faq-item" data-open="false">
+      <button class="faq-item__q" aria-expanded="false">
+        Si tengo cuenta gratis y vendo entradas, ¿cuánto me cobran?
+        <span class="faq-item__icon" aria-hidden="true">+</span>
+      </button>
+      <div class="faq-item__a">
+        <p>Se descuenta un 15% del valor de cada entrada vendida. Con Premium, esa comisión solo la paga quien compra la entrada, no vos.</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="no-results" id="no-results">No encontramos nada con esa palabra. Probá con otra, o escribinos directamente más abajo.</p>
+
+  <section class="contact" id="contacto">
+    <h2>¿No encontraste lo que buscabas?</h2>
+    <p>Mandanos un mensaje y te contestamos directo. Sin bots, sin vueltas.</p>
+    <a class="contact__email" href="mailto:yovoy.applestore@gmail.com">✉️ yovoy.applestore@gmail.com</a>
+    <p class="contact__note">Tiempo de respuesta promedio: 24 a 72 horas hábiles.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer__links">
+    <a href="https://yo-voy-app.web.app/terminos">Términos y condiciones</a>
+    <a href="https://yo-voy-app.web.app/privacidad">Privacidad</a>
+    <a href="https://www.instagram.com/yovoy.app">Instagram</a>
+  </div>
+  <p class="footer__copy">© 2026 ¡YoVoy! · Siempre hay alguien con ganas.</p>
+</footer>
+
+<script>
+  // Acordeón
+  document.querySelectorAll('.faq-item__q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.closest('.faq-item');
+      var answer = item.querySelector('.faq-item__a');
+      var isOpen = item.getAttribute('data-open') === 'true';
+
+      // cierra otros abiertos dentro de la misma categoría (opcional: deja todos independientes)
+      if(isOpen){
+        item.setAttribute('data-open','false');
+        btn.setAttribute('aria-expanded','false');
+        answer.style.maxHeight = null;
+      } else {
+        item.setAttribute('data-open','true');
+        btn.setAttribute('aria-expanded','true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Chips: scroll suave
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(e){
+      var id = chip.getAttribute('href');
+      var target = document.querySelector(id);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        history.pushState(null,'',id);
+      }
+    });
+  });
+
+  // Buscador
+  var searchInput = document.getElementById('faq-search');
+  var allItems = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  var allCategories = Array.prototype.slice.call(document.querySelectorAll('.category'));
+  var noResults = document.getElementById('no-results');
+
+  searchInput.addEventListener('input', function(){
+    var term = searchInput.value.trim().toLowerCase();
+    var totalVisible = 0;
+
+    allCategories.forEach(function(cat){
+      var items = cat.querySelectorAll('.faq-item');
+      var visibleInCat = 0;
+
+      items.forEach(function(item){
+        var question = item.querySelector('.faq-item__q').textContent.toLowerCase();
+        var answer = item.querySelector('.faq-item__a').textContent.toLowerCase();
+        var matches = term === '' || question.indexOf(term) !== -1 || answer.indexOf(term) !== -1;
+        item.hidden = !matches;
+        if(matches) visibleInCat++;
+      });
+
+      cat.hidden = visibleInCat === 0;
+      totalVisible += visibleInCat;
+    });
+
+    noResults.style.display = totalVisible === 0 ? 'block' : 'none';
+  });
+</script>
+
+</body>
+</html>
